@@ -3,36 +3,12 @@ import pytesseract
 import pynput.mouse
 import ctypes
 from time import sleep
+import threading
 
 PROCESS_PER_MONITOR_DPI_AWARE = 2
 ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 mouse_ctr = pynput.mouse.Controller()
 sleep(1)
-
-
-def grab_text(image, area):
-    img = image.crop(area)
-    text = pytesseract.image_to_string(img, lang='eng')
-    return text.replace("\n", " ")
-
-
-area_list = [(223, 251, 566, 476),
-             (598, 265, 943, 475),
-             (981, 263, 1320, 477),
-             (1352, 262, 1700, 479),
-             (225, 511, 572, 731),
-             (599, 509, 947, 728),
-             (973, 505, 1322, 723),
-             (1349, 507, 1701, 731),
-             (225, 778, 559, 981),
-             (602, 770, 941, 984),
-             (977, 774, 1312, 990),
-             (1358, 776, 1697, 982)]
-
-point_pos = []
-for c in area_list:
-    point_pos.append(((c[0] + c[2]) / 2, (c[1] + c[3]) / 2))
-print(point_pos)
 
 word_dict = {"alpha": "radioactive",
              "Atomic number": "A number",
@@ -74,6 +50,32 @@ word_dict = {"alpha": "radioactive",
              "Atomic model": "A de",
              "Deflected": "Changi",
              "electric charge": "matter"}
+
+area_list = [(223, 251, 566, 476),
+             (598, 265, 943, 475),
+             (981, 263, 1320, 477),
+             (1352, 262, 1700, 479),
+             (225, 511, 572, 731),
+             (599, 509, 947, 728),
+             (973, 505, 1322, 723),
+             (1349, 507, 1701, 731),
+             (225, 778, 559, 981),
+             (602, 770, 941, 984),
+             (977, 774, 1312, 990),
+             (1358, 776, 1697, 982)]
+
+point_pos = []
+for c in area_list:
+    point_pos.append(((c[0] + c[2]) / 2, (c[1] + c[3]) / 2))
+print(point_pos)
+
+
+def grab_text(image, area):
+    img = image.crop(area)
+    text = pytesseract.image_to_string(img, lang='eng')
+    return text.replace("\n", " ")
+
+
 grid_texts = []
 
 
