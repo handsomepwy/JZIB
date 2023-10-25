@@ -102,10 +102,12 @@ def run():
     print(grid_texts)
 
 
-while ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB").getpixel((745, 818)) == (66, 62, 216) or ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB").getpixel((745, 818)) == (66, 85, 255):
-    pass
-while ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB").getpixel((216, 323)) != (217, 221, 232):
-    pass
+image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
+pixel_rgb = image_rgb.getpixel((745, 818))
+while pixel_rgb == (66, 62, 216) or pixel_rgb == (66, 85, 255):
+    image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
+while image_rgb.getpixel((216, 323)) != (217, 221, 232):
+    image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
 run()
 # with pynput.keyboard.Listener(on_press=run) as listener:
 #     listener.join()
