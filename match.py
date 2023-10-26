@@ -1,14 +1,14 @@
-from PIL import ImageGrab, Image
+from PIL import ImageGrab
 import pytesseract
 import pynput.mouse
 import ctypes
 from time import sleep
 import threading
+from multiprocessing import Process, Manager
 
 PROCESS_PER_MONITOR_DPI_AWARE = 2
 ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 mouse_ctr = pynput.mouse.Controller()
-sleep(1)
 
 word_dict = {"alpha": "radioactive",
              "Atomic number": "A number",
@@ -64,25 +64,44 @@ area_list = [(223, 251, 566, 476),
              (977, 774, 1312, 990),
              (1358, 776, 1697, 982)]
 
-point_pos = []
-for c in area_list:
-    point_pos.append(((c[0] + c[2]) / 2, (c[1] + c[3]) / 2))
-print(point_pos)
+
+def four_ocr_process(image, row_number, grid_texts_list):
+    image_row = (image.crop(area_list[4 * row_number + 0]),
+                 image.crop(area_list[4 * row_number + 1]),
+                 image.crop(area_list[4 * row_number + 2]),
+                 image.crop(area_list[4 * row_number + 3]))
+    text1 = pytesseract.image_to_string(image_row[0], lang='eng')
+    text1 = text1.replace("\n", " ")
+    text2 = pytesseract.image_to_string(image_row[1], lang='eng')
+    text2 = text2.replace("\n", " ")
+    text3 = pytesseract.image_to_string(image_row[2], lang='eng')
+    text3 = text3.replace("\n", " ")
+    text4 = pytesseract.image_to_string(image_row[3], lang='eng')
+    text4 = text4.replace("\n", " ")
+    grid_texts_list.extend((text1, text2, text3, text4))
 
 
-def grab_text(image, area):
-    img = image.crop(area)
-    text = pytesseract.image_to_string(img, lang='eng')
-    return text.replace("\n", " ")
+def ocr_process(image, sector_number, grid_texts_list):
+    image_sector = image.crop(area_list[sector_number])
+    text = pytesseract.image_to_string(image_sector, lang='eng')
+    text = text.replace("\n", " ")
+    grid_texts_list.append(text)
 
 
-grid_texts = []
+ThreadLock = threading.Lock()
+processes = []
 
 
 def run():
     image = ImageGrab.grab((0, 0, 1920, 1080))
-    for c in area_list:
-        grid_texts.append(grab_text(image, c))
+    manager = Manager()
+    grid_texts = manager.list([])
+    for i in range(3):
+        ocr_proc = Process(target=four_ocr_process, args=(image, i, grid_texts))
+        ocr_proc.start()
+        processes.append(ocr_proc)
+    for c in processes:
+        c.join()
     print(grid_texts)
     for key in word_dict:
         for i in range(len(grid_texts)):
@@ -100,16 +119,21 @@ def run():
                         mouse_ctr.position = point_pos[j]
                         mouse_ctr.press(pynput.mouse.Button.left)
                         mouse_ctr.release(pynput.mouse.Button.left)
-                sleep(0.2)
+                sleep(0.17)
     print(grid_texts)
 
 
-image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
-pixel_rgb = image_rgb.getpixel((745, 818))
-while pixel_rgb == (66, 62, 216) or pixel_rgb == (66, 85, 255):
+if __name__ == "__main__":
+    sleep(1)
+    point_pos = []
+    for c in area_list:
+        point_pos.append(((c[0] + c[2]) / 2, (c[1] + c[3]) / 2))
+    print(point_pos)
     image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
-while image_rgb.getpixel((216, 323)) != (217, 221, 232):
-    image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
-run()
-# with pynput.keyboard.Listener(on_press=run) as listener:
-#     listener.join()
+    pixel_rgb = image_rgb.getpixel((745, 818))
+    while pixel_rgb == (66, 62, 216) or pixel_rgb == (66, 85, 255):
+        image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
+        pixel_rgb = image_rgb.getpixel((745, 818))
+    while image_rgb.getpixel((216, 323)) != (217, 221, 232):
+        image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
+    run()
