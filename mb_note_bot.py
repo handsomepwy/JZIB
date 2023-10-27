@@ -5,15 +5,14 @@ from time import sleep
 import logging
 from urllib3 import disable_warnings
 import time
+import os
 
 disable_warnings()
 logging.basicConfig(filename='MB.log', level=logging.INFO)
 
 header = {
-    "Authorization": "Bearer eyJhbGciOiJFUzUxMiJ9"
-                     ".eyJ1c2VyX2lkIjoxMzA1MDE5NSwidXNlcl9wb3J0YWxfYWNjb3VudF9pZCI6ImRwNldyWUZueHdBdWlWZzE1ZEhHejcxUCIsImVtYWlsIjoicGFuLndlbnl1YW4uMjNAamRmemliLm9yZyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJtYW5hZ2ViYWMifQ.AKSWmAW2C32I1irpWsJaKhRCzj3EOksg7c3MyO7E6JfgVvM7RBwuGqqJDzB1e-QAkWeeFycy4s6Vaz6wtKXmK6cSAQeOrt1ZuLCQqFXFHjMpw124gzYvxbecDOo083a1Y7c7ieFJHTfgiGTw8SfeMsQopNF-0wdMGm9z-sbYq1D9Z17o"}
-webhook = ("https://oapi.dingtalk.com/robot/send?access_token"
-           "=15d1c0e7e41b878862141399d2f8b310f86e1a7bd9091481611f326a3966d337")
+    "Authorization": os.environ["MB_AUTH_VALUE"]}
+webhook = (os.environ["DING_WEBHOOK"])
 loop_times = 0
 logging.info("config finished, start to loop")
 while True:
@@ -34,10 +33,6 @@ while True:
                 "title": "MB通知",
                 "text": str(md)+"欸嘿"
             }
-        }
-        qq_msg = {
-            "group_id": 392474787,
-            "message": md
         }
         webhook_resp = requests.post(webhook, json=webhook_msg, verify=False)
         print(webhook_resp.content)
