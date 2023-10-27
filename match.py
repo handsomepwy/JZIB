@@ -1,5 +1,5 @@
 from PIL import ImageGrab
-import pytesseract
+import tesserocr
 import pynput.mouse
 import ctypes
 from time import sleep
@@ -70,22 +70,15 @@ def four_ocr_process(image, row_number, grid_texts_list):
                  image.crop(area_list[4 * row_number + 1]),
                  image.crop(area_list[4 * row_number + 2]),
                  image.crop(area_list[4 * row_number + 3]))
-    text1 = pytesseract.image_to_string(image_row[0], lang='eng')
+    text1 = tesserocr.image_to_text(image_row[0], lang='eng')
     text1 = text1.replace("\n", " ")
-    text2 = pytesseract.image_to_string(image_row[1], lang='eng')
+    text2 = tesserocr.image_to_text(image_row[1], lang='eng')
     text2 = text2.replace("\n", " ")
-    text3 = pytesseract.image_to_string(image_row[2], lang='eng')
+    text3 = tesserocr.image_to_text(image_row[2], lang='eng')
     text3 = text3.replace("\n", " ")
-    text4 = pytesseract.image_to_string(image_row[3], lang='eng')
+    text4 = tesserocr.image_to_text(image_row[3], lang='eng')
     text4 = text4.replace("\n", " ")
     grid_texts_list.extend((text1, text2, text3, text4))
-
-
-def ocr_process(image, sector_number, grid_texts_list):
-    image_sector = image.crop(area_list[sector_number])
-    text = pytesseract.image_to_string(image_sector, lang='eng')
-    text = text.replace("\n", " ")
-    grid_texts_list.append(text)
 
 
 ThreadLock = threading.Lock()
@@ -93,7 +86,7 @@ processes = []
 
 
 def run():
-    image = ImageGrab.grab((0, 0, 1920, 1080))
+    image = ImageGrab.grab((0, 0, 1920, 1080)).convert('L').point(lambda x: 0 if x < 128 else 255, '1')
     manager = Manager()
     grid_texts = manager.list([])
     for i in range(3):
@@ -119,7 +112,7 @@ def run():
                         mouse_ctr.position = point_pos[j]
                         mouse_ctr.press(pynput.mouse.Button.left)
                         mouse_ctr.release(pynput.mouse.Button.left)
-                sleep(0.17)
+                sleep(0.164)
     print(grid_texts)
 
 
