@@ -103,16 +103,14 @@ def run():
                 print(text)
                 grid_texts[i] = ""
                 mouse_ctr.position = point_pos[i]
-                mouse_ctr.press(pynput.mouse.Button.left)
-                mouse_ctr.release(pynput.mouse.Button.left)
+                mouse_ctr.click(pynput.mouse.Button.left, 1)
                 for j in range(len(grid_texts)):
                     if word_dict[key] in grid_texts[j]:
                         print(grid_texts[j])
                         grid_texts[j] = ""
                         mouse_ctr.position = point_pos[j]
-                        mouse_ctr.press(pynput.mouse.Button.left)
-                        mouse_ctr.release(pynput.mouse.Button.left)
-                sleep(0.164)
+                        mouse_ctr.click(pynput.mouse.Button.left, 1)
+                sleep(0.16)
     print(grid_texts)
 
 
