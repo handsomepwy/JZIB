@@ -10,19 +10,6 @@ ctypes.windll.shcore.SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE)
 mouse_ctr = pynput.mouse.Controller()
 keyboard_ctr = pynput.keyboard.Controller()
 
-area_list = [(223, 251, 566, 476),
-             (598, 265, 943, 475),
-             (981, 263, 1320, 477),
-             (1352, 262, 1700, 479),
-             (225, 511, 572, 731),
-             (599, 509, 947, 728),
-             (973, 505, 1322, 723),
-             (1349, 507, 1701, 731),
-             (225, 778, 559, 981),
-             (602, 770, 941, 984),
-             (977, 774, 1312, 990),
-             (1358, 776, 1697, 982)]
-
 # https://quizlet.com/841791952/match?funnelUUID=838ce222-9480-4d2d-ba28-71d469d59cd6
 word_dict = {"alpha particle": "radioactive",
              "Atomic number": "A number",
@@ -96,6 +83,20 @@ word_dict = {"alpha particle": "radioactive",
 #              "diffusion rate": "How fast diffusion occurs"}
 
 
+point_pos = [(399, 370),
+             (776, 385),
+             (1166, 375),
+             (1541, 376),
+             (399, 628),
+             (787, 636),
+             (1153, 633),
+             (1534, 635),
+             (404, 890),
+             (776, 884),
+             (1149, 892),
+             (1521, 887)]
+
+
 def run():
     keyboard_ctr.press(pynput.keyboard.Key.ctrl)
     keyboard_ctr.press(pynput.keyboard.KeyCode.from_char("a"))
@@ -127,9 +128,6 @@ def run():
 
 if __name__ == "__main__":
     sleep(1)
-    point_pos = []
-    for c in area_list:
-        point_pos.append(((c[0] + c[2]) / 2, (c[1] + c[3]) / 2))
     image_rgb = ImageGrab.grab((0, 0, 1920, 1080)).convert("RGB")
     pixel_rgb = image_rgb.getpixel((745, 818))
     while pixel_rgb == (66, 62, 216) or pixel_rgb == (66, 85, 255):
