@@ -1,0 +1,74 @@
+<head>
+    <meta charset="UTF-8">
+    <title>DMK!</title>
+            <style>
+        *{
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        html{
+            min-width: 980px;
+            width: 101%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-image:url("https://panwy.tech/static/thx.jpg");
+            background-repeat:no-repeat;
+            /*background-size:cover*/
+            overflow-x: hidden !important;
+        }
+        span{
+            display: inline-block;
+            position: relative;
+            left: 0;
+            white-space: nowrap;
+        }
+    </style>
+    <script>
+        // window.onload=function() {
+            // 创建两个数组分别装文字颜色和大小
+            var Color = ["red", "blue", "green", "pink", "peru", "purple"]
+            var Size = ["25px", "20px", "22px"]
+            function send_dmk(text) {
+                // 将上面box里放入input输入的内容，用span标签包裹
+                var span = document.createElement("span")
+                // var top = document.querySelector(".top")
+                document.body.appendChild(span)
+                span.style.fontWeight = "bold";
+                span.innerHTML = text
+                // 给这个标签一个随机高度和颜色还有大小
+                span.style.fontSize = Size[Math.round(Math.random() * 7)]
+                span.style.color = Color[Math.floor((Math.random()*Color.length))]
+                span.style.top = Math.round(Math.random() * 500) + "px"
+                // 实现文字从左向右滚动，利用定时器，每隔一段时间向右移动一段距离
+                var step = 0
+                var timer = setInterval(() => {
+                    step++
+                    span.style.left = step + "px"
+                    if (span.offsetLeft+span.offsetWidth >= document.body.clientWidth) {
+                        span.style.transition = "opacity 1s";
+                        span.style.opacity = 0;
+                        setTimeout(function() {
+                          span.parentNode.removeChild(span);
+                        }, 1000);
+                        // clearInterval(timer)
+                        var arr = ['橙子老师我爱你！！！！！！', '我们家宝宝是一朵小雏菊', '️', '感谢mc', '感谢Josephine态度分给我B，这是对我莫大的鼓励，我会加油学习生物的！争取期末在摸爬滚打后拿A！爱你Josephine！！！感恩！您是我最爱的生物老师！！！！！！！！！！！！', '汤画画老师我爱你！！！！', '感谢 感恩 一切', 'Dear Mr. Agata, I wanted to take a moment to express my gratitude for your dedication and hard work in helping me prepare for the mid-term physics exam. Your commitment to teaching and your passion for the subject have been truly inspiring. I am grateful for the knowledge and guidance you’ve provided, which has helped me achieve my academic goals. Thank you for being an amazing teacher！', '橙子老师，你签名的被子我都洗好恭在桌上，每次学psy前都拜一拜', '张师傅，谢谢您每天的工作，守着我们', '老师您好！谢谢您！', '感谢yyr和xmy对我三年友爱和谐的帮助，我绝不辜负你们的期望，未来我要带你们去看林晨的夕阳', '我在湾谷中发现了一只可爱的美短猫，它在我的学习生活中给予了很多鼓励，感谢！', '感谢林同学五年来对我的恩情', '感谢佘老师对我们物理的教导', 'mr.Ro真是太萌了 so cute', 'Ms.Wenny我爱你', '感恩的心～感恩有你～', '高仕昂爱朱修齐', '我爱火鸡！感恩火鸡！', '"我是顾大家，书本是我的伙伴，笔是我的利剑，梦想是我前行的动力，为知识的海洋而努力奋斗。"', '"我是顾大家，书本是我的伙伴，笔是我的利剑，梦想是我前行的动力，为知识的海洋而努力奋斗。"', '讲台虽小 能载千秋伟业 烛光虽微 亦照万里山河', '东妮杨，梦想在心房，奋斗年华长，笑看人生旺。杨东妮，青春悠扬旋，努力耕耘田，收获成功欢。东妮杨，心中星光璀璨，勇攀人生巅，舞动青春弯。杨东妮，奋斗路漫漫，坚持心不懒，梦想终绚烂。东妮杨，微笑如阳光，努力奋斗向前，未来更精彩。', '杨东妮，美丽如东方，坚韧如柳，梦想之花，绽放自信与智慧！', '我根本不敢想如果不是佘老师教物理 我会多快drop这门学科 佘の伟大无需多言，佘门', '佳子老师我爱你！！', '今天被工长骂了 说我水泥拌得太稀 工长把我的铁锹锤烂了 问我水是不是不要钱 我不敢反驳 他不知道的是 我没有多放水 只是拌水泥时很想Monica老师 眼泪掉进了水泥里', '“你人生的目标是什么？”“去HL3班听佘老师讲狭相。”“不，我是说你这辈子最大的目标。”“一直去HL3班听佘老师讲狭相。”', '佘门', '物理一时听不懂是正常的，开点北北牌物理一对一答疑，服用两个疗程，包教包会，孩子很爱吃敏感肌也能用', '我加入佘门是怎么回事呢？我相信大家都很熟悉，但是我加入佘门是怎么回事呢，下面就让小编带大家一起了解吧。我加入佘门，其实就是非常加入佘门，大家可能会很惊讶我怎么会加入佘门呢？但事实就是这样，小编也感到非常惊讶。这就是关于我加入佘门的事情了，大家有什么想法呢，欢迎在评论区告诉小编一起讨论哦！', 'Ms JOSE！ A VERY BIG THANK YOU, your teaching REALLY GIVE RISE TO  an upheveal in my studying method！ I ditch my old primitive one and adapted to your more conceptual; more organized, more modern one！ Please teach us more of it！ A BIG THANK YOU！ LONG LIVE JOSEPHISM！', "I want to express my deepest gratitude to our incredible biology teacher, Ms.JOSEPHINE who has made learning about the wonders of life as smooth as OSMOSIS！ Ms. Josephine, you truly are a nucleus of knowledge and we appreciate you ‘cell’-ebrating our growth！ And still, we can't wait for you to use the ‘LEFT-OVER’s in YOUR classroom in exchange for FOOOOOD for us to EAAAT！！", '感谢pib3最美丽善良无私的同学用一阳指帮我减肥', 'I would like to express my sincere gratitude to our exceptional biology teacher, Josephine, whose teaching has left an indelible mark on our minds. Please allow me to explain the significance of each letter in your name as a token of appreciation. J - You are always Joyful and bring an infectious enthusiasm to the classroom, making learning a delightful experience. O - Your Openness to questions and willingness to explore new ideas have fostered an inclusive learning environment. S - Your Superb knowledge and expertise in the subject matter have made you an invaluable source of information and inspiration. E - Your Exceptional teaching skills and ability to engage students have made even the most easiest concepts easy to comprehend. P - Thank you for giving the chance to us to do the PRACTICE IA to lay the groundwork for the final formal IA H - You are like Hydrogen. I mean, if there is a table in bio just like the periodic table in Chemistry, you are absolutely the first one we will think of. I - Your Innovative teaching methods and incorporation of interactive activities have made learning biology an exciting adventure. We will surely make our own mind-maps. N - You NEVER give us tons of exam-style paper for homework. E - Your Enthusiasm for biology is contagious, igniting a passion for the subject within each of us.', '陈璐老师超萌超爱', '搅动思绪， 使我奋发向前。 奋力拼搏，我苦不堪言。 策马奔腾， 你是我前行的动力。 目标坚定，我与你同行。 张庭硕，你是我学习路上的伙伴。', '谢谢林萌老师 top1 啊啊啊啊啊啊啊啊', '老师我爱你们']
+                        send_dmk(arr[Math.floor((Math.random()*arr.length))])
+                    }
+                }, 2);
+            }
+    </script>
+</head>
+<body>
+<script>
+    arr = ['橙子老师我爱你！！！！！！', '我们家宝宝是一朵小雏菊', '️', '感谢mc', '感谢Josephine态度分给我B，这是对我莫大的鼓励，我会加油学习生物的！争取期末在摸爬滚打后拿A！爱你Josephine！！！感恩！您是我最爱的生物老师！！！！！！！！！！！！', '汤画画老师我爱你！！！！', '感谢 感恩 一切', 'Dear Mr. Agata, I wanted to take a moment to express my gratitude for your dedication and hard work in helping me prepare for the mid-term physics exam. Your commitment to teaching and your passion for the subject have been truly inspiring. I am grateful for the knowledge and guidance you’ve provided, which has helped me achieve my academic goals. Thank you for being an amazing teacher！', '橙子老师，你签名的被子我都洗好恭在桌上，每次学psy前都拜一拜', '张师傅，谢谢您每天的工作，守着我们', '老师您好！谢谢您！', '感谢yyr和xmy对我三年友爱和谐的帮助，我绝不辜负你们的期望，未来我要带你们去看林晨的夕阳', '我在湾谷中发现了一只可爱的美短猫，它在我的学习生活中给予了很多鼓励，感谢！', '感谢林同学五年来对我的恩情', '感谢佘老师对我们物理的教导', 'mr.Ro真是太萌了 so cute', 'Ms.Wenny我爱你', '感恩的心～感恩有你～', '高仕昂爱朱修齐', '我爱火鸡！感恩火鸡！', '"我是顾大家，书本是我的伙伴，笔是我的利剑，梦想是我前行的动力，为知识的海洋而努力奋斗。"', '"我是顾大家，书本是我的伙伴，笔是我的利剑，梦想是我前行的动力，为知识的海洋而努力奋斗。"', '讲台虽小 能载千秋伟业 烛光虽微 亦照万里山河', '东妮杨，梦想在心房，奋斗年华长，笑看人生旺。杨东妮，青春悠扬旋，努力耕耘田，收获成功欢。东妮杨，心中星光璀璨，勇攀人生巅，舞动青春弯。杨东妮，奋斗路漫漫，坚持心不懒，梦想终绚烂。东妮杨，微笑如阳光，努力奋斗向前，未来更精彩。', '杨东妮，美丽如东方，坚韧如柳，梦想之花，绽放自信与智慧！', '我根本不敢想如果不是佘老师教物理 我会多快drop这门学科 佘の伟大无需多言，佘门', '佳子老师我爱你！！', '今天被工长骂了 说我水泥拌得太稀 工长把我的铁锹锤烂了 问我水是不是不要钱 我不敢反驳 他不知道的是 我没有多放水 只是拌水泥时很想Monica老师 眼泪掉进了水泥里', '“你人生的目标是什么？”“去HL3班听佘老师讲狭相。”“不，我是说你这辈子最大的目标。”“一直去HL3班听佘老师讲狭相。”', '佘门', '物理一时听不懂是正常的，开点北北牌物理一对一答疑，服用两个疗程，包教包会，孩子很爱吃敏感肌也能用', '我加入佘门是怎么回事呢？我相信大家都很熟悉，但是我加入佘门是怎么回事呢，下面就让小编带大家一起了解吧。我加入佘门，其实就是非常加入佘门，大家可能会很惊讶我怎么会加入佘门呢？但事实就是这样，小编也感到非常惊讶。这就是关于我加入佘门的事情了，大家有什么想法呢，欢迎在评论区告诉小编一起讨论哦！', 'Ms JOSE！ A VERY BIG THANK YOU, your teaching REALLY GIVE RISE TO  an upheveal in my studying method！ I ditch my old primitive one and adapted to your more conceptual; more organized, more modern one！ Please teach us more of it！ A BIG THANK YOU！ LONG LIVE JOSEPHISM！', "I want to express my deepest gratitude to our incredible biology teacher, Ms.JOSEPHINE who has made learning about the wonders of life as smooth as OSMOSIS！ Ms. Josephine, you truly are a nucleus of knowledge and we appreciate you ‘cell’-ebrating our growth！ And still, we can't wait for you to use the ‘LEFT-OVER’s in YOUR classroom in exchange for FOOOOOD for us to EAAAT！！", '感谢pib3最美丽善良无私的同学用一阳指帮我减肥', 'I would like to express my sincere gratitude to our exceptional biology teacher, Josephine, whose teaching has left an indelible mark on our minds. Please allow me to explain the significance of each letter in your name as a token of appreciation. J - You are always Joyful and bring an infectious enthusiasm to the classroom, making learning a delightful experience. O - Your Openness to questions and willingness to explore new ideas have fostered an inclusive learning environment. S - Your Superb knowledge and expertise in the subject matter have made you an invaluable source of information and inspiration. E - Your Exceptional teaching skills and ability to engage students have made even the most easiest concepts easy to comprehend. P - Thank you for giving the chance to us to do the PRACTICE IA to lay the groundwork for the final formal IA H - You are like Hydrogen. I mean, if there is a table in bio just like the periodic table in Chemistry, you are absolutely the first one we will think of. I - Your Innovative teaching methods and incorporation of interactive activities have made learning biology an exciting adventure. We will surely make our own mind-maps. N - You NEVER give us tons of exam-style paper for homework. E - Your Enthusiasm for biology is contagious, igniting a passion for the subject within each of us.', '陈璐老师超萌超爱', '搅动思绪， 使我奋发向前。 奋力拼搏，我苦不堪言。 策马奔腾， 你是我前行的动力。 目标坚定，我与你同行。 张庭硕，你是我学习路上的伙伴。', '谢谢林萌老师 top1 啊啊啊啊啊啊啊啊', '老师我爱你们']
+        send_dmk(arr[0])
+        send_dmk(arr[1])
+        send_dmk(arr[2])
+        send_dmk(arr[3])
+        send_dmk(arr[0])
+        send_dmk(arr[1])
+        send_dmk(arr[2])
+</script>
+</body>
